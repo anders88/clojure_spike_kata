@@ -19,4 +19,23 @@
   )
 )
 
+(defpage "/create" []
+  (html5
+   [:head
+    [:title "Clojure spike"]
+    ]
+   [:body
+    [:h1 "Create person"]
+    (form-to [:post "/newPerson"]
+      (text-field "full_name")
+      (submit-button "Create person"))
+     ]
+  )
+)
+
+
+(defpage [:post "/newPerson"] {:keys [full-name]}
+  (monger/insert "person" { :fullName full-name })
+  (response/redirect "/"))
+
 

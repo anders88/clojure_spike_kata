@@ -15,6 +15,7 @@
    [:body
     [:h1 "Clojure spike"]
     [:p (link-to "/create" "Create person")]
+    [:p (link-to "/search" "Find people")]
      ]
   )
 )
@@ -33,9 +34,24 @@
   )
 )
 
+(defpartial person-entry [{:keys [_id fullName]}]  
+  [:li fullName]
+  )
 
-(defpage [:post "/newPerson"] {:keys [full-name]}
-  (monger/insert "person" { :fullName full-name })
+(defpage "/search" []
+;  (println "***PERSONS+++" (monger/find-maps "person"))
+  (html5 
+    [:body
+      [:ul (map person-entry (monger/find-maps "person"))]
+      ]
+    )
+  
+  
+  )
+
+
+(defpage [:post "/newPerson"] {:keys [full_name]}
+  (monger/insert "person" { :fullName full_name })
   (response/redirect "/"))
 
 

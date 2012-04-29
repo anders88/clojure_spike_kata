@@ -2,7 +2,7 @@
   (:require [noir.response :as response]
             [monger.collection :as monger])
   (:use [noir.core :only [defpage defpartial]]
-        [hiccup.page-helpers :only [html5]]
+        [hiccup.page-helpers :only [html5 link-to]]
         [hiccup.form-helpers])
   (:import [org.bson.types ObjectId]))
 
@@ -14,7 +14,7 @@
     ]
    [:body
     [:h1 "Clojure spike"]
-    [:p "Create person sss"]
+    [:p (link-to "/create" "Create person")]
      ]
   )
 )
